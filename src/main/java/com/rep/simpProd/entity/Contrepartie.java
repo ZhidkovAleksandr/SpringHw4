@@ -3,6 +3,8 @@ package com.rep.simpProd.entity;
 import com.rep.simpProd.enums.TypePartenaire;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Contrepartie")
 public class Contrepartie {
@@ -15,6 +17,16 @@ public class Contrepartie {
     @Enumerated(EnumType.STRING)
     private TypePartenaire typePartenaire;
 
+    @OneToMany(mappedBy = "contrepartie")
+    private List<Contract> contracts;
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
+    }
 
     public long getId() {
         return id;

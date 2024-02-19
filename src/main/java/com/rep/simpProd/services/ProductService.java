@@ -51,4 +51,8 @@ public class ProductService {
         productRepository.deleteByArticul(nArticul);
     }
 
+    public List<Product> findByIdIn(List<Long> ids){
+       return productRepository.findByIdIn(ids);
+    }
+
 }

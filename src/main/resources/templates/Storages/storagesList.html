@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrepôts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Les entrepôts</h2>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Note</th>
+            <th>Utilisé</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="storage : ${storages}">
+            <td th:text="${storage.id}"></td>
+            <td th:text="${storage.name}"></td>
+            <td th:text="${storage.storageType}"></td>
+            <td th:text="${storage.notUse}"></td>
+            <td>
+                <a th:href="@{/storages/{id}(id=${storage.id})}">Details</a>
+                <a th:href="@{/storages/edit/{id}(id=${storage.id})}">Edit</a>
+                <a th:href="@{/storages/delete/{id}(id=${storage.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+    <a href="/newStorage">Ajouter un entrepôt</a>
+
+</body>
+</html>
