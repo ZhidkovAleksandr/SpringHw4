@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>L'entrepôt</title>
+    <title>Create Contrepartie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,17 +58,21 @@
     </style>
 </head>
 <body>
-
-    <h2>L'entrepôt</h2>
-
-    <form th:object="${storage}" th:action="@{/saveStorage}" method="post">
+    <h1>Create Contrepartie</h1>
+    <form th:object="${contract}" th:action="@{/saveContract}" method="post">
         <input type="hidden" th:field="*{id}">
-        <label>Nom: <input type="text" th:field="*{name}"></label><br>
-        <label>Type: <input type="text" th:field="*{storageType}"></label><br>
-        <label>Commentaire: <input type="text" th:field="*{note}"></label><br>
-        <!--<label>Ne pas utiliser: <input type="checkbox" th:field="*{notUse}"></label><br>-->
-        <button type="submit">Sauvegarder</button>
+        <label>Nom du contrat: <input type="text" th:field="*{name}" /></label><br>
+        <label for="contrepartie">Contrepartie:</label>
+        <select id="contrepartie" name="contrepartie">
+            <option th:each="con : ${contreparties}" th:value="${con.id}" th:text="${con.name}"></option>
+        </select><br>
+        <label>Montant du contrat: <input type="number" step="any" th:field="*{sum}" /></label><br>
+        <label for="dateDebut">Date de début:</label>
+        <input class="form-control" type="date" id="dateDebut" th:field="*{dateDebut}"/>
+        <label for="dateDebut">Date de fin:</label>
+        <input class="form-control" type="date" id="dateFin" th:field="*{dateFin}"/>
+        <button type="submit">Créer</button>
     </form>
-
+    <a href="/list">Retour</a>
 </body>
 </html>

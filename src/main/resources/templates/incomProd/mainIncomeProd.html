@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achat principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex; /* Используем flexbox */
+            justify-content: space-between; /* Распределение элементов по ширине */
+            gap: 20px; /* Расстояние между блоками */
+        }
+
+        .block {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            width: calc(50% - 10px); /* Ширина блока на 50% минус промежуток */
+        }
+
+        .block:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        .block a {
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Réception et contrôle des marchandises</h1>
+<a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
+
+<div class="container">
+    <div class="block">
+        <a href="/incommingCreation">
+            Réception
+        </a>
+    </div>
+    <div class="block">
+        <a href="/showProductOnStock">
+            Produits en stock
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+package com.rep.simpProd.controllers;
+
+import com.rep.simpProd.entity.User;
+import com.rep.simpProd.services.CustomUserDetailsService;
+import com.rep.simpProd.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class UserController {
+
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+    @Autowired
+    private UserService userService;
+
+//    @Autowired
+//    private CustomUserDetailsService customUserDetailsService;
+//    @Autowired
+//    AuthenticationManager authenticationManager;
+
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model ) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User user) {
+        userService.registerUser(user);
+        return "redirect:/generalView";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model, User user) {
+        model.addAttribute("user", user);
+        return "login";
+    }
+
+//    @PostMapping("/login")
+//    public String login(@ModelAttribute("user") User user, HttpServletRequest request) {
+//        String username = user.getUsername();
+//        String password = user.getPassword();
+//
+//        // Проверяем, существует ли пользователь с заданным именем пользователя
+//        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+//        if (userDetails == null) {
+//            // Если пользователь не найден, выполняем необходимую логику, например, возвращаем ошибку
+//            return "redirect:/login?error=true";
+//        }
+//
+//        // Создаем объект аутентификации
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
+//
+//        // Проводим аутентификацию
+//        Authentication authenticated = authenticationManager.authenticate(authentication);
+//
+//        // Устанавливаем объект аутентификации в сессию
+//        SecurityContextHolder.getContext().setAuthentication(authenticated);
+//
+//        return "redirect:/generalView"; // Перенаправление после успешной аутентификации
+//    }
+
+}

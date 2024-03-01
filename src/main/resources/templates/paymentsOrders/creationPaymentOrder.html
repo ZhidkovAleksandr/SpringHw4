@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create paiement</title>
+    <style>
+                body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сréation du paiement</h1>
+    <form th:object="${paymentOrder}" th:action="@{/continueEditingPaymentOrd}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label for="idSupplier">Ordre:</label>
+        <select id="idSupplier" name="idSupplier">
+            <option value="">Choisissez un ordre</option>
+            <option th:each="sup : ${supOrders}" th:value="${sup.id}" th:text="${sup.name}"></option>
+        </select><br>
+        <label for="datePayment">Date de paiement:</label>
+<!--        <input class="form-control" type="date" id="datePayment" th:field="*{datePayment}"/>-->
+        <input class="form-control" type="date" id="datePayment" name="datePayment" th:field="*{datePayment}" />
+        <label>Nom du paiement: <input type="text" th:field="*{name}" class="form-input" /></label><br>
+        <label>Bic du payeur: <input type="text" th:field="*{bicPayer}" /></label><br>
+        <label>IBAN du payeur: <input type="text" th:field="*{ibanPayer}" /></label><br>
+        <label>Titulaire du compte: <input type="text" th:field="*{titulair}" /></label><br>
+        <label>BIC du bénéficiaire: <input type="text" th:field="*{bicReciever}" /></label><br>
+        <label>IBAN du bénéficiaire: <input type="text" th:field="*{ibanReciever}" /></label><br>
+<!--        <label>Titulaire du compte bénéficiaire: <input type="text" th:field="*{recipient}" /></label><br>-->
+        <!-- <label>Objectif du paiement: <input type="text" th:field="*{recipient}" /></label><br> -->
+        <button type="submit">Suivant</button>
+    </form>
+    <a href="/list">Retour</a>
+</body>
+</html>

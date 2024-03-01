@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrat détails</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contrat détails</h2>
+
+    <p><strong>ID:</strong> <span th:text="${contract.id}"></span></p>
+    <p><strong>Nom de contrar:</strong> <span th:text="${contract.name}"></span></p>
+    <p><strong>Contrepartie:</strong> <span th:text="${contract.contrepartie.name}"></span></p>
+    <p><strong>Montant du contrat:</strong> <span th:text="${contract.sum}"></span></p>
+    <p><strong>Date de début:</strong> <span th:text="${#dates.format(contract.dateDebut, 'yyyy-MM-dd')}"></span></p>
+    <p><strong>Date de fin:</strong> <span th:text="${#dates.format(contract.dateFin, 'yyyy-MM-dd')}"></span></p>
+    <p><strong>Exécuté:</strong> <input type="checkbox" th:checked="${contract.isDone}" disabled /></p>
+
+
+    <a href="/contracts">Retour</a>
+
+</body>
+</html>

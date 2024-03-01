@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Entrepôts</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,30 +56,34 @@
 </head>
 <body>
 
-    <h2>Produits</h2>
+    <h2>Les entrepôts</h2>
     <a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
     <table border="1">
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Articul</th>
+            <th>Nom</th>
+            <th>Type</th>
+            <th>Note</th>
+            <th>Utilisé</th>
             <th>Actions</th>
         </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.articul}"></td>
+        <tr th:each="storage : ${storages}">
+            <td th:text="${storage.id}"></td>
+            <td th:text="${storage.name}"></td>
+            <td th:text="${storage.storageType}"></td>
+            <td th:text="${storage.note}"></td>
             <td>
-                <a th:href="@{/prod/{id}(id=${product.id})}">Détails</a>
-                <a th:href="@{/edit/{id}(id=${product.id})}">Modifier</a>
-                <a th:href="@{/delete/{id}(id=${product.id})}">Effacer</a>
+                <input type="checkbox" th:checked="${storage.notUse}" disabled>
+            </td>
+            <td>
+                <a th:href="@{/store/{id}(id=${storage.id})}">Details</a>
+                <a th:href="@{/store/edit/{id}(id=${storage.id})}">Edit</a>
+                <a th:href="@{/store/delete/{id}(id=${storage.id})}">Delete</a>
             </td>
         </tr>
     </table>
 
-    <a href="/new">Ajouter un produit</a>
+    <a href="/createNewStorage">Ajouter un entrepôt</a>
 
 </body>
 </html>

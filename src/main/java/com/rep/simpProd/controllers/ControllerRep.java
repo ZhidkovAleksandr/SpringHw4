@@ -27,7 +27,7 @@ public class ControllerRep {
         return "productsList";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/prod/{id}")
     public String getProductById(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id).orElse(null);
         model.addAttribute("product", product);

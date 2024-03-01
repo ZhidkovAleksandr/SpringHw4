@@ -64,7 +64,14 @@
     <form th:object="${storage}" th:action="@{/updateStorage}" method="post">
         <input type="hidden" th:field="*{id}">
         <label>Nom: <input type="text" th:field="*{name}"></label><br>
-        <label>Type: <input type="text" th:field="*{storageType}"></label><br>
+        <label>Type: </label><br>
+        <select class="form-control" id="storageType" th:field="*{storageType}">
+            <option
+                    th:each="storageType :${T(com.rep.simpProd.enums.StorageTypes).values()}"
+                    th:value="${storageType}"
+                    th:text="${storageType}">
+            </option>
+        </select><br>
         <label>Commentaire: <input type="text" th:field="*{note}"></label><br>
         <label>Ne pas utiliser: <input type="checkbox" th:field="*{notUse}"></label><br>
         <button type="submit">Modifier</button>

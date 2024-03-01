@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrats List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contrats</h1>
+    <a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom du contrat</th>
+                <th>Contrepartie</th>
+                <th>Montant du contrat</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Exécuté</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tr th:each="contract : ${contracts}">
+            <td th:text="${contract.id}"></td>
+                <td th:text="${contract.name}"></td>
+                <td>
+                    <a th:href="@{/contrepartie/{id}(id=${contract.contrepartie.id})}">
+                        <span th:text="${contract.contrepartie.name}"></span>
+                    </a>
+                </td>
+                <td th:text="${contract.sum}"></td>
+                <td th:text="${#dates.format(contract.dateDebut, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(contract.dateFin, 'yyyy-MM-dd')}"></td>
+                <td>
+                    <input type="checkbox" th:checked="${contract.isDone}" disabled />
+                </td>
+            <td>
+                <a th:href="@{/contract/{id}(id=${contract.id})}">Détails</a>
+                <a th:href="@{/contract/edit/{id}(id=${contract.id})}">Modifier</a>
+                <a th:href="@{/contract/delete/{id}(id=${contract.id})}">Effacer</a>
+            </td>
+        </tr>
+    </table>
+    <a href="/newContract">Créer</a>
+</body>
+</html>

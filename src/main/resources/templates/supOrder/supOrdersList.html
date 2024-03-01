@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Commandes au vendeur</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,31 +55,31 @@
     </style>
 </head>
 <body>
-
-    <h2>Produits</h2>
+    <h1>Commandes au vendeur</h1>
     <a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Articul</th>
-            <th>Actions</th>
-        </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.articul}"></td>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nomde la commande</th>
+                <th>Contrat</th>
+                <th>Montant de commande</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tr th:each="sOrder : ${supOrders}">
+            <td th:text="${sOrder.id}"></td>
+                <td th:text="${sOrder.name}"></td>
+                <td th:text="${sOrder.contract.name}"></td>
+                <td th:text="${sOrder.sumOrder}"></td>
+                <td th:text="${#dates.format(sOrder.dateCreation, 'yyyy-MM-dd')}"></td>
             <td>
-                <a th:href="@{/prod/{id}(id=${product.id})}">Détails</a>
-                <a th:href="@{/edit/{id}(id=${product.id})}">Modifier</a>
-                <a th:href="@{/delete/{id}(id=${product.id})}">Effacer</a>
+                <a th:href="@{/suporders/{id}(id=${sOrder.id})}">Détails</a>
+                <a th:href="@{/suporders/delete/{id}(id=${sOrder.id})}">Effacer</a>
             </td>
         </tr>
     </table>
-
-    <a href="/new">Ajouter un produit</a>
-
+    <a href="/newVersOrd">Créer</a>
 </body>
 </html>

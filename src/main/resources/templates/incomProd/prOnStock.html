@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Entrepôts</title>
+    <title>Produits en stock</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,32 +55,32 @@
     </style>
 </head>
 <body>
-
-    <h2>Les entrepôts</h2>
-
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Note</th>
-            <th>Utilisé</th>
-            <th>Actions</th>
-        </tr>
-        <tr th:each="storage : ${storages}">
-            <td th:text="${storage.id}"></td>
-            <td th:text="${storage.name}"></td>
-            <td th:text="${storage.storageType}"></td>
-            <td th:text="${storage.notUse}"></td>
-            <td>
-                <a th:href="@{/storages/{id}(id=${storage.id})}">Details</a>
-                <a th:href="@{/storages/edit/{id}(id=${storage.id})}">Edit</a>
-                <a th:href="@{/storages/delete/{id}(id=${storage.id})}">Delete</a>
-            </td>
+    <h1>Produits en stock</h1>
+    <a href="/" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>L'entrepôt</th>
+            </tr>
+        </thead>
+        <tr th:each="st : ${onStocks}">
+            <td th:text="${st.id}"></td>
+                <td>
+                    <a th:href="@{/prod/{id}(id=${st.product.id})}">
+                        <span th:text="${st.product.name}"></span>
+                    </a>
+                </td>
+                <td th:text="${st.quantity}"></td>
+                <td>
+                    <a th:href="@{/store/{id}(id=${st.storage.id})}">
+                        <span th:text="${st.storage.name}"></span>
+                    </a>
+                </td>
         </tr>
     </table>
-
-    <a href="/newStorage">Ajouter un entrepôt</a>
-
+    <a href="/incommingOperations">Retour</a>
 </body>
 </html>

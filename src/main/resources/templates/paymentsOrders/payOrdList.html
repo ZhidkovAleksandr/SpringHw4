@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Paiement des commandes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,30 +56,36 @@
 </head>
 <body>
 
-    <h2>Produits</h2>
+    <h2>Paiement des commandes</h2>
     <a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
     <table border="1">
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Articul</th>
+            <th>Date de paiement</th>
+            <th>Nom</th>
+            <th>Ordre</th>
+            <th>Montant</th>
+            <th>Payé</th>
             <th>Actions</th>
         </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.articul}"></td>
+        <tr th:each="payment : ${paymentOrders}">
+            <td th:text="${payment.id}"></td>
+            <td th:text="${#dates.format(payment.datePayment, 'yyyy-MM-dd')}"></td>
+            <td th:text="${payment.name}"></td>
+            <td th:text="${payment.idSupplier.name}"></td>
+            <td th:text="${payment.sum}"></td>
             <td>
-                <a th:href="@{/prod/{id}(id=${product.id})}">Détails</a>
-                <a th:href="@{/edit/{id}(id=${product.id})}">Modifier</a>
-                <a th:href="@{/delete/{id}(id=${product.id})}">Effacer</a>
+                <input type="checkbox" th:checked="${payment.payed}" disabled>
+            </td>
+            <td>
+                <a th:href="@{/payOrd/{id}(id=${payment.id})}">Details</a>
+                <a th:href="@{/payOrd/edit/{id}(id=${payment.id})}">Payer</a>
+                <a th:href="@{/payOrd/delete/{id}(id=${payment.id})}">Delete</a>
             </td>
         </tr>
     </table>
 
-    <a href="/new">Ajouter un produit</a>
+    <a href="/newPaymentOrder">Créer un paiement</a>
 
 </body>
 </html>

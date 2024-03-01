@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Détails commande</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,31 +55,33 @@
     </style>
 </head>
 <body>
-
+    <h1>Détails de la commande</h1>
+    <form id="otherForm" th:object="${supplierOrder}">
+        <p>Id:<span th:text="*{id}"></span></p>
+        <p>Nom:<span th:text="*{name}"></span></p>
+        <p>Montant contractuel:<span th:text="*{contract.sum}"></span></p>
+        <p>Montant de l'ordre:<span th:text="*{sumOrder}"></span></p>
+        <label for="dateCreation">Date:</label>
+        <input class="form-control" type="date" id="dateCreation" th:field="*{dateCreation}" />
+        <p>Contrat:<span th:text="${supplierOrder.contract.name}"></span></p>
     <h2>Produits</h2>
-    <a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
     <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Articul</th>
-            <th>Actions</th>
-        </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.articul}"></td>
-            <td>
-                <a th:href="@{/prod/{id}(id=${product.id})}">Détails</a>
-                <a th:href="@{/edit/{id}(id=${product.id})}">Modifier</a>
-                <a th:href="@{/delete/{id}(id=${product.id})}">Effacer</a>
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Nom de produit</th>
+                <th>prix</th>
+                <th>quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${supplierOrder.supplierProducts}">
+                <td th:text="${product.product.name}"></td>
+                <td th:text="${product.product.price}"></td>
+                <td th:text="${product.quantity}"></td>
+            </tr>
+        </tbody>
     </table>
-
-    <a href="/new">Ajouter un produit</a>
-
+    </form>
+    <a href="/supOrders">Retour</a>
 </body>
 </html>

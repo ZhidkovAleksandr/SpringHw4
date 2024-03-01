@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du paiement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Détails du paiement</h2>
+        <label>
+            Payé: <input type="checkbox" th:checked="${paymentOrder.payed}" disabled>
+        </label><br>
+        <label>Nom du paiement: <span th:text="${paymentOrder.name}"></span></label><br>
+        <label>Contrepartie: <span th:text="${paymentOrder.idSupplier.name}"></span></label><br>
+        <label>Date de paiement: <span th:text="${paymentOrder.datePayment}"></span></label><br>
+        <label>Montant: <span th:text="${paymentOrder.sum}"></span></label><br>
+        <label>Bic du payeur: <span th:text="${paymentOrder.bicPayer}"></span></label><br>
+        <label>IBAN du payeur: <span th:text="${paymentOrder.ibanPayer}"></span></label><br>
+        <label>Titulaire du compte: <span th:text="${paymentOrder.titulair}"></span></label><br>
+        <label>BIC du bénéficiaire: <span th:text="${paymentOrder.bicReciever}"></span></label><br>
+        <label>IBAN du bénéficiaire: <span th:text="${paymentOrder.ibanReciever}"></span></label><br>
+        <label>Titulaire du compte bénéficiaire: <span th:text="${paymentOrder.recipient}"></span></label><br>
+        <label>Objectif du paiement: <span th:text="${paymentOrder.purpose}"></span></label><br>
+
+    <a href="/paymentsOrders">Retour</a>
+
+</body>
+</html>

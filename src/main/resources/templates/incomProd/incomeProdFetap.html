@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Réception des marchandises</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="date"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Réception des marchandises</h1>
+
+
+    <form id="otherForm" th:action="@{/recSuiv}" th:object="${dockReceipt}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label for="dateIncome">Date de réception:</label>
+        <input type="date" id="dateIncome" name="dateIncome" th:value="*{dateIncome}" required><br>
+        <label>Nom: <input type="text" id="nameField" name="nameField" th:field="${dockReceipt.name}" /></label><br>
+
+        <label for="paiement">Paiement:</label>
+        <select id="paiement" name="idPayment">
+            <option value="">Choisissez un paiement</option>
+            <option th:each="p : ${idPayment}" th:value="${p.id}" th:text="${p.name}"></option>
+        </select><br>
+
+        <label for="storageId">L'entrepôt:</label>
+<!--        <select id="storage" name="storage">-->
+<!--            <option value="">Choisissez un entrepôt</option>-->
+<!--            <option th:each="s : ${storages}" th:value="${s.id}" th:text="${s.name}"></option>-->
+<!--        </select><br>-->
+        <select id="storageId" name="storageId">
+            <option value="">Choisissez un entrepôt</option>
+            <option th:each="storage : ${storages}"
+                    th:value="${storage.id}"
+                    th:text="${storage.name}">
+            </option>
+        </select>
+
+        <button type="submit">Suivant</button>
+
+    </form>
+
+</body>
+</html>

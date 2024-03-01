@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur lors de la création d'un reçu</title>
+    <style>
+        .error-container {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h3>Error</h3>
+        <p th:text="${errorMessage}"></p>
+        <a href="/incommingOperations">Retour</a>
+    </div>
+    
+</body>
+</html>

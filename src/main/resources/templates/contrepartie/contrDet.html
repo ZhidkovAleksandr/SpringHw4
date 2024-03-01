@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrepartie détails</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contrepartie détails</h2>
+
+    <p><strong>ID:</strong> <span th:text="${contrepartie.id}"></span></p>
+    <p><strong>Nom:</strong> <span th:text="${contrepartie.name}"></span></p>
+    <p><strong>SIREN:</strong> <span th:text="${contrepartie.siren}"></span></p>
+    <p><strong>Type:</strong> <span th:text="${contrepartie.typePartenaire}"></span></p>
+
+    <a href="/contreparties">Retour</a>
+
+</body>
+</html>
