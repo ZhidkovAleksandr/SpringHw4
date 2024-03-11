@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacts</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Contacts</h2>
+<a href="/generalView" style="position: absolute; top: 10px; left: 10px; text-decoration: none; color: #333;">&#8592; Console</a>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Contrepartie</th>
+    <th>E-mail</th>
+    <th>Telephone</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="contact : ${contacts}">
+    <td th:text="${contact.id}"></td>
+    <td>
+        <a th:href="@{/contrepartie/{id}(id=${contact.idContr.id})}">
+          <span th:text="${contact.idContr.name}"></span>
+        </a>
+    </td>
+    <td th:text="${contact.email}"></td>
+    <td th:text="${contact.tel}"></td>
+    <td>
+      <a th:href="@{/contact/{id}(id=${contact.id})}">Détails</a>
+      <a th:href="@{/contact/edit/{id}(id=${contact.id})}">Modifier</a>
+      <a th:href="@{/contact/delete/{id}(id=${contact.id})}">Effacer</a>
+    </td>
+  </tr>
+</table>
+
+<a href="/new">Ajouter un contact</a>
+
+</body>
+</html>
