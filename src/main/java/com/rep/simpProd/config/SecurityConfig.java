@@ -1,5 +1,6 @@
 package com.rep.simpProd.config;
 
+import com.rep.simpProd.services.CustomSuccessHandler;
 import com.rep.simpProd.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -24,6 +25,8 @@ public class SecurityConfig{
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -43,13 +46,15 @@ public class SecurityConfig{
                         .requestMatchers( "/register").permitAll()
                         .anyRequest().authenticated()
                 )
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        //.loginProcessingUrl("/login")
-//                        .defaultSuccessUrl("/buyerMain", true)
-//                        .permitAll()
-                .formLogin(withDefaults()
-                )
+
+
+//26.03.2024
+                //.formLogin(withDefaults()
+                //)
+                .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
+                        .successHandler(customSuccessHandler).permitAll())
+//26.03.2024
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/mainSimp")
@@ -65,12 +70,10 @@ public class SecurityConfig{
 
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-//            auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-//
-//    }
-
+    @Autowired
+    public void configure (AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
 
 
 }

@@ -20,16 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
 
-//    @Autowired
-//    private UserDetailsService userDetailsService;
     @Autowired
     private UserService userService;
-
-//    @Autowired
-//    private CustomUserDetailsService customUserDetailsService;
-//    @Autowired
-//    AuthenticationManager authenticationManager;
-
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model ) {
@@ -45,33 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(Model model, User user) {
-        model.addAttribute("user", user);
+    public String showLoginForm() {
         return "login";
     }
-
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute("user") User user, HttpServletRequest request) {
-//        String username = user.getUsername();
-//        String password = user.getPassword();
-//
-//        // Проверяем, существует ли пользователь с заданным именем пользователя
-//        UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-//        if (userDetails == null) {
-//            // Если пользователь не найден, выполняем необходимую логику, например, возвращаем ошибку
-//            return "redirect:/login?error=true";
-//        }
-//
-//        // Создаем объект аутентификации
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
-//
-//        // Проводим аутентификацию
-//        Authentication authenticated = authenticationManager.authenticate(authentication);
-//
-//        // Устанавливаем объект аутентификации в сессию
-//        SecurityContextHolder.getContext().setAuthentication(authenticated);
-//
-//        return "redirect:/generalView"; // Перенаправление после успешной аутентификации
-//    }
 
 }

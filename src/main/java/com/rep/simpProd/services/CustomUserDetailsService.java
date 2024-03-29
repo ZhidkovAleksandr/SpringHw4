@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -28,6 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("user not found");
         }
         return new CustomUserDetails(user.getUsername(), user.getPassword(), authorities());
+
     }
 
     public Collection<? extends GrantedAuthority> authorities(){

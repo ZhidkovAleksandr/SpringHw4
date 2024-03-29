@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+    <title>Product Excel upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            text-align: left;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(128, 128, 128, 0.5);;
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            text-align: left;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <form id="fileUploadForm" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit">upload</button>
+    </form> 
+
+    <h2>File info</h2>
+
+
+    <p><strong>File name:</strong> <span th:text="${fileName}"></span></p>
+    <p><strong>Size:</strong> <span th:text="${fileSize}"></span></p>
+    <p><strong>Type:</strong> <span th:text="${fileType}"></span></p>
+    
+
+    <h2>Products</h2>
+    <form hx-post="/parseFile" hx-target="this" hx-swap="outerHTML">
+    <table border="1">
+        <tr>
+            
+            <th>Name</th>
+            <th>Prix</th>
+            <th>Articul</th>
+        </tr>
+        <tr th:each="inf : ${products}">
+            <td th:text="${inf.name}"></td>
+            <td th:text="${inf.price}"></td>
+            <td th:text="${inf.articul}"></td>
+        </tr>
+    </table>
+    <button>
+        Parse
+    </button>
+</form>
+    
+
+</body>
+</html>

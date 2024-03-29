@@ -1,0 +1,23 @@
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<form hx-post="/saveParsed" hx-target="this" hx-swap="outerHTML">
+  <table border="1">
+    <tr>
+
+      <th>Name</th>
+      <th>Prix</th>
+      <th>Articul</th>
+    </tr>
+    <tr th:each="product, iterStat : ${productsForm.products}">
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
+      <td th:text="${product.articul}"></td>
+      <input type="hidden" th:name="'products[' + ${iterStat.index} + '].name'" th:value="${product.name}" />
+      <input type="hidden" th:name="'products[' + ${iterStat.index} + '].price'" th:value="${product.price}" />
+      <input type="hidden" th:name="'products[' + ${iterStat.index} + '].articul'" th:value="${product.articul}" />
+    </tr>
+  </table>
+
+    <button>Save</button>
+
+</form>
+</html>

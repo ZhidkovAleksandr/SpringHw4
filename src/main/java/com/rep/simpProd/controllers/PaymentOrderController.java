@@ -6,7 +6,9 @@ import com.rep.simpProd.entity.Contract;
 import com.rep.simpProd.entity.Contrepartie;
 import com.rep.simpProd.entity.PaymentOrders;
 import com.rep.simpProd.entity.SupplierOrder;
+import com.rep.simpProd.helpers.ContactCollector;
 import com.rep.simpProd.helpers.PaymentOrderStructure;
+import com.rep.simpProd.services.ContactService;
 import com.rep.simpProd.services.EmailService;
 import com.rep.simpProd.services.PaymentOrdersService;
 import com.rep.simpProd.services.SupplierOrderService;
@@ -31,11 +33,19 @@ public class PaymentOrderController {
     private final SupplierOrderService supplierOrderService;
     private final EmailService emailService;
 
+    private final ContactCollector contactCollector;
+
+
     @Autowired
-    public PaymentOrderController(PaymentOrdersService paymentOrdersService, SupplierOrderService supplierOrderService, EmailService emailService){
+    public PaymentOrderController(PaymentOrdersService paymentOrdersService,
+                                  SupplierOrderService supplierOrderService,
+                                  EmailService emailService,
+                                  ContactCollector contactCollector){
         this.paymentOrdersService = paymentOrdersService;
         this.supplierOrderService = supplierOrderService;
-        this.emailService = emailService;
+        this.emailService         = emailService;
+        this.contactCollector     = contactCollector;
+
     }
 
     @GetMapping("/paymentsOrders")
@@ -62,15 +72,6 @@ public class PaymentOrderController {
         boolean ibanPayerIsCorrect = checkIBAN(paymentOrder.getIbanPayer());
         boolean bicRecievierIsCorrect = checkBIC(paymentOrder.getBicReciever());
         boolean ibanRecivierIsCorrect = checkIBAN(paymentOrder.getIbanReciever());
-
-//        boolean dataPayer = bicPayerIsCorret&&ibanPayerIsCorrect;
-//        boolean dataRecivier = bicRecievierIsCorrect&&ibanRecivierIsCorrect;
-//
-//        boolean conditionToSave = true;
-//
-//        if(!(dataPayer&&dataRecivier)){
-//            conditionToSave = false;
-//        }
 
         if(!bicPayerIsCorret){
             bindingResult.rejectValue("bicPayer", "bicPayer.invalid", "BIC est incorrect");
@@ -108,9 +109,6 @@ public class PaymentOrderController {
             return "paymentsOrders/maintPaiement";
         }
 
-        //attributes.put("paymentOrder", paymentOrder);
-        //attributes.put("nextStep", conditionToSave);
-        //model.addAllAttributes(attributes);
 
 
     }
@@ -132,9 +130,12 @@ public class PaymentOrderController {
             PaymentOrderStructure paySer = new PaymentOrderStructure(paymentOrder);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String paymentMessage = gson.toJson(paySer);
+            Contrepartie contrepartie = paymentOrder.getIdSupplier().getContract().getContrepartie();
+            Map<String, String> contInfo = contactCollector.getAddressInfContrePartie(contrepartie);
+
             boolean send;
             try {
-                emailService.sendMessageToOtherPartie("zhidkov.alex@yahoo.com",
+                emailService.sendMessageToOtherPartie(contInfo.get("email"),
                         paymentOrder.getName(), paymentMessage);
                 send = true;
             }catch (Exception e){
@@ -152,6 +153,7 @@ public class PaymentOrderController {
             return "redirect:/paymentsOrders";
         }
     }
+
 
     @GetMapping("/payOrd/{id}")
     public String getSupOrderById(@PathVariable Long id, Model model) {
